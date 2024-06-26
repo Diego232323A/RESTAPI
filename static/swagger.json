@@ -1,0 +1,185 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API para la gestión de productos",
+      "version": "1.0.0",
+      "title": "API de Productos"
+    },
+    "host": "127.0.0.1:5000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Producto",
+        "description": "Gestión de productos"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/api/products": {
+        "post": {
+          "tags": ["Producto"],
+          "summary": "Crear un nuevo producto",
+          "description": "",
+          "operationId": "addProduct",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Producto a crear",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Producto creado exitosamente",
+              "schema": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": ["Producto"],
+          "summary": "Obtener todos los productos",
+          "description": "",
+          "operationId": "getProducts",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Lista de productos",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/products/{id}": {
+        "get": {
+          "tags": ["Producto"],
+          "summary": "Obtener un producto por ID",
+          "description": "",
+          "operationId": "getProductById",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Producto encontrado",
+              "schema": {
+                "$ref": "#/definitions/Product"
+              }
+            },
+            "404": {
+              "description": "Producto no encontrado"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Producto"],
+          "summary": "Actualizar un producto",
+          "description": "",
+          "operationId": "updateProduct",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Producto a actualizar",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Producto actualizado",
+              "schema": {
+                "$ref": "#/definitions/Product"
+              }
+            },
+            "404": {
+              "description": "Producto no encontrado"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Producto"],
+          "summary": "Eliminar un producto",
+          "description": "",
+          "operationId": "deleteProduct",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Producto eliminado",
+              "schema": {
+                "$ref": "#/definitions/Product"
+              }
+            },
+            "404": {
+              "description": "Producto no encontrado"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Product": {
+        "type": "object",
+        "required": ["name", "price", "quantity"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    }
+  }
+  
